@@ -1,0 +1,22 @@
+authenticate:
+    path: /authenticate
+    controller: App\Controller\AuthenticateController::authenticate
+    methods: [GET]
+guids_list:
+    path: /guids
+    controller: App\Controller\GuidsController::list
+    methods: [GET]
+guids_show:
+    path: /guids/{guid}
+    controller: App\Controller\GuidsController::show
+    methods: [GET]
+    requirements:
+      guid: '^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$'
+guids_create:
+    path: /guids
+    controller: App\Controller\GuidsController::create
+    methods: [PUT]
+guids_update:
+    path: /guids
+    controller: App\Controller\GuidsController::update
+    methods: [POST]

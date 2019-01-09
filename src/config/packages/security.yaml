@@ -1,0 +1,30 @@
+security:
+    providers:
+        chain_provider:
+            chain:
+                providers: [api_key_provider, api_token_provider]
+        api_key_provider:
+            entity:
+                class: App\Entity\User
+                property: apiKey
+        api_token_provider:
+            entity:
+                class: App\Entity\Token
+                property: value
+    firewalls:
+        api_authenticate:
+            pattern: ^/authenticate
+            provider: api_key_provider
+            guard:
+              authenticators:
+                - App\Security\ApiKeyAuthenticator
+            stateless: true
+        api_resources:
+            pattern: ^/guids
+            provider: chain_provider
+            guard:
+              authenticators:
+                - App\Security\ApiKeyAuthenticator
+                - App\Security\TokenAuthenticator
+              entry_point: App\Security\ApiKeyAuthenticator
+            stateless: true
